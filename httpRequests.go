@@ -55,15 +55,3 @@ func commandMap(cfg *config) error{
     cfg.previousLocationURL = response.Previous
 	return nil
 }
-
-type PokeLocation struct
-{
-	Name string `json:"name"`
-	Url string `json:"url"`
-}
-
-type LocationAreaResponse struct {
-    Results 	[]PokeLocation	`json:"results"`
-	Next 		*string 		`json:"next"`
-	Previous	*string			`json:"previous"`
-}

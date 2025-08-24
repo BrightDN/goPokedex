@@ -21,10 +21,6 @@ func main() {
 			break
 		}
 
-		if len(scanner.Text()) == 0 {
-			continue
-		}
-
 		cleanInput := CleanInput(scanner.Text())
 
 		commandFound = false
@@ -42,6 +38,9 @@ func main() {
 }
 
 func CleanInput(text string) []string {
+	if len(text) == 0 {
+        return []string{""}
+    }
 	lowerCased := strings.ToLower(text)
 	trimmed := strings.TrimSpace(lowerCased)
 	return strings.Fields(trimmed)
@@ -83,15 +82,4 @@ func initCommands() {
             callback:    commandMap,
         },
     }
-}
-
-type cliCommand struct {
-	name			string
-	description 	string
-	callback func(*config) error
-}
-
-type config struct {
-    nextLocationURL     *string
-    previousLocationURL *string
 }
