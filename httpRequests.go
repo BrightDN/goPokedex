@@ -27,19 +27,19 @@ func commandMap(cfg *config) error{
 	
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return err
+    	return fmt.Errorf("Error getting the requested url: %v", err)
 	}
 
 	res, err := client.Do(req)
 	if err != nil {
-		return err
+    	return fmt.Errorf("Error handling the request: %v", err)
 	}
 
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
-		return err
+    	return fmt.Errorf("Error reading JSON response: %v", err)
 	}
 	
 	var response LocationAreaResponse
