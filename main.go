@@ -20,6 +20,7 @@ func main() {
 
 	scanner := bufio.NewScanner(os.Stdin)
 	commandFound := false
+	missingArgs := false
 
 	for {
 		fmt.Print("Pokedex > ")
@@ -32,10 +33,18 @@ func main() {
 		cleanInput := CleanInput(scanner.Text())
 
 		commandFound = false
+		missingArgs = false
+
 		for _, command := range commands.SupportedCommands {
 			if cleanInput[0] == command.Name {
 				commandFound = true
-				command.Callback(cfg)
+				if len(cleanInput) < (len(command.Args) + 1) {
+					missingArgs = true
+					fmt.Println("Missing arguments")
+				}
+				if !missingArgs {
+					command.Callback(cfg)
+				}
 				break
 			}
 		}
