@@ -1,8 +1,8 @@
 package commands
 
 import (
-		"github.com/brightDN/goPokedex/internal/structs"
+		"github.com/brightDN/goPokedex/internal/pokeapi"
 )
-func commandExplore(cfg *structs.Config) error{
+func commandExplore(cfg *pokeapi.Config) error{
 	return nil
 }

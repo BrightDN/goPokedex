@@ -4,55 +4,55 @@ import (
 	"fmt"
 	"os"
 
-    "github.com/brightDN/goPokedex/internal/structs"
+    "github.com/brightDN/goPokedex/internal/pokeapi"
 )
 
-var SupportedCommands map[string]structs.CliCommand
+var SupportedCommands map[string]CliCommand
 
 func InitCommands() {
-    SupportedCommands = map[string]structs.CliCommand{
+    SupportedCommands = map[string]CliCommand{
         "exit": {
             Name:        "exit",
             Description: "Exit the program",
             Callback:    commandExit,
-            Args:        []structs.CommandArgs{},
+            Args:        []CommandArgs{},
         },
         "help": {
             Name:        "help", 
             Description: "Displays a help message",
             Callback:    commandHelp,
-            Args:        []structs.CommandArgs{},
+            Args:        []CommandArgs{},
         },
         "map": {
             Name:        "map",
             Description: "Show the next 20 locations", 
             Callback:    commandMap,
-            Args:        []structs.CommandArgs{},
+            Args:        []CommandArgs{},
         },
 		"mapb": {
 			Name:           "mapb",
 			Description:    "Show the previouw 20 locations",
 			Callback:       commandMapB,
-            Args:           []structs.CommandArgs{},
+            Args:           []CommandArgs{},
 		},
         "explore": {
             Name: "explore",
             Description: "Explore a specified area",
             Callback:     commandExplore,
-            Args:        []structs.CommandArgs{
+            Args:        []CommandArgs{
                                 {Name: "AreaName"},
                             },
         },
     }
 }
 
-func commandExit(cfg *structs.Config) error {
+func commandExit(cfg *pokeapi.Config) error {
 	fmt.Println("Closing the Pokedex... Goodbye!")
 	os.Exit(0)
 	return nil
 }
 
-func commandHelp(cfg *structs.Config) error {
+func commandHelp(cfg *pokeapi.Config) error {
 	fmt.Println("Welcome to the Pokedex!")
 	fmt.Println("Usage:")
     fmt.Println("")
@@ -75,7 +75,7 @@ func commandHelp(cfg *structs.Config) error {
 	return nil
 }
 
-func commandMap(cfg *structs.Config) error {
+func commandMap(cfg *pokeapi.Config) error {
     url := "https://pokeapi.co/api/v2/location-area/"
     if cfg.NextLocationURL != nil {
         url = *cfg.NextLocationURL
@@ -100,7 +100,7 @@ func commandMap(cfg *structs.Config) error {
     return nil
 }
 
-func commandMapB(cfg *structs.Config) error {
+func commandMapB(cfg *pokeapi.Config) error {
 	url := "https://pokeapi.co/api/v2/location-area/"
     if cfg.PreviousLocationURL != nil {
         url = *cfg.PreviousLocationURL

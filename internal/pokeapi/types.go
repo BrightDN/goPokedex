@@ -14,3 +14,9 @@ type LocationAreaResponse struct {
 		URL  string `json:"url"`
 	} `json:"results"`
 }
+
+type Config struct {
+	NextLocationURL     *string
+    PreviousLocationURL *string
+	PokeapiClient    	Client
+}
