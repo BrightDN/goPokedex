@@ -3,13 +3,21 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 	"bufio"
 	"os"
+	"net/http"
+	
+	"github.com/brightDN/goPokedex/internal"
 )
 
 func main() {
 	initCommands()
-	cfg := &config{} 
+	pokeClient := NewClient(5*time.Second, time.Minute*5)
+	cfg := &config{
+		pokeapiClient: pokeClient,
+	} 
+
 	scanner := bufio.NewScanner(os.Stdin)
 	commandFound := false
 
@@ -46,40 +54,11 @@ func CleanInput(text string) []string {
 	return strings.Fields(trimmed)
 }
 
-func commandExit(cfg *config) error {
-	fmt.Println("Closing the Pokedex... Goodbye!")
-	os.Exit(0)
-	return nil
-}
-
-func commandHelp(cfg *config) error {
-	fmt.Println("Welcome to the Pokedex!")
-	fmt.Println("Usage:\n")
-
-	for _, command := range supportedCommands {
-		fmt.Printf("%s: %s\n", command.name, command.description)
+func NewClient(timeout, cacheInterval time.Duration) Client {
+	return Client{
+		cache: internal.NewCache(cacheInterval),
+		httpClient: http.Client{
+			Timeout: timeout,
+		},
 	}
-	return nil
-}
-
-var supportedCommands map[string]cliCommand
-
-func initCommands() {
-    supportedCommands = map[string]cliCommand{
-        "exit": {
-            name:        "exit",
-            description: "Exit the program",
-            callback:    commandExit,
-        },
-        "help": {
-            name:        "help", 
-            description: "Displays a help message",
-            callback:    commandHelp,
-        },
-        "map": {
-            name:        "map",
-            description: "Show the next 20 locations", 
-            callback:    commandMap,
-        },
-    }
 }
