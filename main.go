@@ -6,16 +6,17 @@ import (
 	"time"
 	"bufio"
 	"os"
-	"net/http"
-	
-	"github.com/brightDN/goPokedex/internal"
+
+	"github.com/brightDN/goPokedex/internal/pokeapi"
+	"github.com/brightDN/goPokedex/internal/structs"
+	"github.com/brightDN/goPokedex/internal/commands"
 )
 
 func main() {
-	initCommands()
-	pokeClient := NewClient(5*time.Second, time.Minute*5)
-	cfg := &config{
-		pokeapiClient: pokeClient,
+	commands.InitCommands()
+	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
+	cfg := &structs.Config{
+		PokeapiClient: pokeClient,
 	} 
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -32,10 +33,10 @@ func main() {
 		cleanInput := CleanInput(scanner.Text())
 
 		commandFound = false
-		for _, command := range supportedCommands {
-			if cleanInput[0] == command.name {
+		for _, command := range commands.SupportedCommands {
+			if cleanInput[0] == command.Name {
 				commandFound = true
-				command.callback(cfg)
+				command.Callback(cfg)
 				break
 			}
 		}
@@ -52,13 +53,4 @@ func CleanInput(text string) []string {
 	lowerCased := strings.ToLower(text)
 	trimmed := strings.TrimSpace(lowerCased)
 	return strings.Fields(trimmed)
-}
-
-func NewClient(timeout, cacheInterval time.Duration) Client {
-	return Client{
-		cache: internal.NewCache(cacheInterval),
-		httpClient: http.Client{
-			Timeout: timeout,
-		},
-	}
 }
