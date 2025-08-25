@@ -13,6 +13,7 @@ type CliCommand struct {
 
 type CommandArgs struct {
 	Name string
+    Val string
 }
 
 var SupportedCommands map[string]CliCommand
@@ -48,7 +49,8 @@ func InitCommands() {
             Description: "Explore a specified area",
             Callback:     commandExplore,
             Args:        []CommandArgs{
-                                {Name: "AreaName"},
+                                {Name: "AreaName",
+                                Val: "TempTest",},
                             },
         },
     }
