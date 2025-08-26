@@ -49,8 +49,21 @@ func InitCommands() {
             Description: "Explore a specified area",
             Callback:     commandExplore,
             Args:        []CommandArgs{
-                                {Name: "AreaName",
-                                Val: "TempTest",},
+                                {
+                                    Name:   "AreaName",
+                                    Val:    "TempTest",
+                                },
+                            },
+        },
+        "catch": {
+            Name:           "catch",
+            Description:    "Attempt to catch a pokemon",
+            Callback:       commandCatch,
+            Args:           []CommandArgs{
+                                {
+                                    Name:   "PokemonName",
+                                    Val:    "Name",
+                                },
                             },
         },
     }

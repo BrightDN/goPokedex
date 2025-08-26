@@ -2,21 +2,23 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"time"
 	"bufio"
 	"os"
 
 	"github.com/brightDN/goPokedex/internal/pokeapi"
 	"github.com/brightDN/goPokedex/internal/commands"
+	"github.com/brightDN/goPokedex/internal/pokedex"
 )
 
 func main() {
+	userPokedex := map[string]pokedex.PokedexEntry{}
 	commands.InitCommands()
 	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
 	cfg := &pokeapi.Config{
 		PokeapiClient: pokeClient,
 		BaseURL: "https://pokeapi.co/api/v2/",
+		UserPokedex: userPokedex,
 	} 
 
 	scanner := bufio.NewScanner(os.Stdin)
@@ -54,13 +56,4 @@ func main() {
 			fmt.Println("Unknown command")
 		}
 	}
-}
-
-func CleanInput(text string) []string {
-	if len(text) == 0 {
-        return []string{""}
-    }
-	lowerCased := strings.ToLower(text)
-	trimmed := strings.TrimSpace(lowerCased)
-	return strings.Fields(trimmed)
 }
