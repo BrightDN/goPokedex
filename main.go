@@ -16,6 +16,7 @@ func main() {
 	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
 	cfg := &pokeapi.Config{
 		PokeapiClient: pokeClient,
+		BaseURL: "https://pokeapi.co/api/v2/",
 	} 
 
 	scanner := bufio.NewScanner(os.Stdin)
