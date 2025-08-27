@@ -66,5 +66,26 @@ func InitCommands() {
                                 },
                             },
         },
+        "inspect": {
+            Name:           "inspect",
+            Description:    "Inspects a caught pokemon's stats",
+            Callback:       commandInspect,
+            Args:           []CommandArgs{
+                                {
+                                    Name:   "PokemonName",
+                                    Val:    "Name",
+                                },
+                            },
+        },
+        "pokedex": {
+            Name:           "pokedex",
+            Description:    "Show a list of the pokemon you have caught",
+            Callback:       commandPokedex,
+            Args:           []CommandArgs{},
+        },
     }
+}
+
+func CommandDisplayOrder() []string {
+    return []string{"help", "explore", "map", "mapb", "catch", "inspect", "pokedex", "exit"}
 }

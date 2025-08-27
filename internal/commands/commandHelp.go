@@ -9,8 +9,9 @@ func commandHelp(cfg *pokeapi.Config) error {
 	fmt.Println("Usage:")
     fmt.Println("")
 
-	for _, command := range SupportedCommands {
+	for _, commandName := range CommandDisplayOrder() {
         arguments := "This command expects no arguments\n"
+        command := SupportedCommands[commandName]
         if len(command.Args) > 0 {
             arguments = "Expected args: "
             for _, arg := range command.Args {
