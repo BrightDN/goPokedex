@@ -5,7 +5,6 @@ import (
 	"math/rand"
 	"time"
 	"github.com/brightDN/goPokedex/internal/pokeapi"
-	"github.com/brightDN/goPokedex/internal/pokedex"
 )
 
 func commandCatch(cfg *pokeapi.Config) error {
@@ -24,10 +23,9 @@ func commandCatch(cfg *pokeapi.Config) error {
 	if isCaught := tryCatch(resp.BaseExperience, random); isCaught {
 		fmt.Printf("%s was caught!\n", resp.Name)
 	
-		entry := pokedex.PokedexEntry{
-		Name:   resp.Name,
-		Seen:   true,
-		Caught: true,
+		entry := pokeapi.PokedexEntry{
+		IsCaught:   true,
+		Data:   *resp,
 		}
 	
 		cfg.UserPokedex[resp.Name] = entry

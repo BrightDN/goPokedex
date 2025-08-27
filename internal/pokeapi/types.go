@@ -1,7 +1,5 @@
 package pokeapi
 
-import 	"github.com/brightDN/goPokedex/internal/pokedex"
-
 type PokeLocation struct {
 	Name	string `json:"name"`
 	Url		string `json:"url"`
@@ -359,5 +357,5 @@ type Config struct {
 	PokeapiClient    	Client
 	BaseURL				string
 
-	UserPokedex			map[string]pokedex.PokedexEntry
+	UserPokedex			map[string]PokedexEntry
 }

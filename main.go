@@ -8,11 +8,10 @@ import (
 
 	"github.com/brightDN/goPokedex/internal/pokeapi"
 	"github.com/brightDN/goPokedex/internal/commands"
-	"github.com/brightDN/goPokedex/internal/pokedex"
 )
 
 func main() {
-	userPokedex := map[string]pokedex.PokedexEntry{}
+	userPokedex := map[string]pokeapi.PokedexEntry{}
 	commands.InitCommands()
 	pokeClient := pokeapi.NewClient(5*time.Second, time.Minute*5)
 	cfg := &pokeapi.Config{
