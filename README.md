@@ -1,9 +1,6 @@
 # goPokedex
-A pokedex CLI-program (REPL) made in the Golang
+A pokedex CLI-program (REPL) made in the Go-language
 
-Future updates:
-* Refining the catch mechanic
-* Add an adventure mode
-   * Starting area and only able to move to locations adjacent
-   * Adventure mode will offer different commands
-   * Ball variety, battles, gyms, ... 
+To use this, simply clone the repository, install Go on your CLI, run a `go build` command while in the root folder of the repository to ensure it's build correctly. Next simply run a `go run ./` in the root folder. (Root folder means the folder containing the `main.go` file.
+
+For the current version and future updates, please reference the [Update log](https://github.com/BrightDN/goPokedex/blob/main/UpdateLog.md)
